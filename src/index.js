@@ -5,7 +5,9 @@ const dayjs = require('dayjs');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userRouter = require('router');
-import UserController from './users';
+import UserController from './controllers/users';
+import Controllers from './controllers';
+import controllers from './controllers';
 
 const app = express();
 
@@ -15,7 +17,11 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '700mb' }));
 
-app.use('/users', UserController.router);
+// app.use('/users', UserController.router);
+
+Controllers.forEach((controller) => {
+  app.use(controller.path, controller.router);
+});
 
 /* const today = new Date();
 const todayToDayjs = dayjs(today).format('YYYY-MM-DD');
@@ -85,6 +91,14 @@ console.log({ token });*/
 //api 요청하기 req>요청, res>응답
 app.get('/', (req, res) => {
   res.send('Hello World');
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+    err.message;
+  res.
+  status(err.status || 500)
+  .json({ message: err.message || '서버에서 에러가 발생했습니다.' });
 });
 
 app.listen(8000, () => {
