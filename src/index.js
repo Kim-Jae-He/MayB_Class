@@ -38,6 +38,7 @@ let users = [
 app.get('/users', (req, res) => {
   const { id, name, age } = req.body;
   console.log(req.body);
+  console.log(req.body);
   res.status(200).json({ users });
 });
 
