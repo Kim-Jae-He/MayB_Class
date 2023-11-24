@@ -8,6 +8,8 @@ const userRouter = require('router');
 import UserController from './controllers/users';
 import Controllers from './controllers';
 import controllers from './controllers';
+import { swaggerDocs, options } from './swagger';
+import swaggerUI from "swagger-ui-express"
 
 const app = express();
 
